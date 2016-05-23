@@ -1,7 +1,28 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
 var app = module.exports = loopback();
+
+// Passport configurators..
+var loopbackPassport = require('loopback-component-passport');
+var PassportConfigurator = loopbackPassport.PassportConfigurator;
+var passportConfigurator = new PassportConfigurator(app);
+
+/*
+ * body-parser is a piece of express middleware that
+ *   reads a form's input and stores it as a javascript
+ *   object accessible through `req.body`
+ *
+ */
+var bodyParser = require('body-parser');
+
+// attempt to build the providers/passport config
+var config = {};
+try {
+  config = require('../providers.json');
+} catch (err) {
+  console.trace(err);
+  process.exit(1); // fatal
+}
 
 // Set up the /favicon.ico
 app.use(loopback.favicon());
@@ -10,9 +31,60 @@ app.use(loopback.favicon());
 app.use(loopback.compress());
 
 // -- Add your pre-processing middleware here --
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 // boot scripts mount components like REST API
 boot(app, __dirname);
+
+// to support JSON-encoded bodies
+app.use(bodyParser.json());
+// to support URL-encoded bodies
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+// The access token is only available after boot
+app.use(loopback.token({
+  model: app.models.accessToken
+})); 
+
+app.use(loopback.cookieParser(app.get('cookieSecret')));
+app.use(loopback.session({
+  secret: 'kitty',
+  saveUninitialized: true,
+  resave: true
+}));
+passportConfigurator.init();
+
+passportConfigurator.setupModels({
+  userModel: app.models.user,
+  userIdentityModel: app.models.userIdentity,
+  userCredentialModel: app.models.userCredential
+});
+
+for (var s in config) {
+  var c = config[s];
+  c.session = c.session !== false;
+  passportConfigurator.configureProvider(s, c);
+}
+
+// oauth 여부 
+app.get('/isauth', function (req, res, next) {
+  // 회원정보 json 출력
+  res.json({
+    user: req.user
+  });
+});
+
+// oauth 처리
+app.get('/auth/account', function (req, res, next) {
+  // redirect
+  res.redirect(req.query.returnUrl);
+});
 
 // -- Mount static files here--
 // All static middleware should be registered at the end, as all requests

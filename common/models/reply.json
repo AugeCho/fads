@@ -1,0 +1,35 @@
+{
+  "name": "reply",
+  "plural": "replies",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "feedId": {
+      "type": "string"
+    },
+    "addDate": {
+      "type": "string",
+      "required": true
+    },
+    "fixDate": {
+      "type": "string"
+    },
+    "delDate": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

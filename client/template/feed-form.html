@@ -1,0 +1,138 @@
+<form name="feedForm" id="feedFormLy"
+	data-ng-submit="isUpdate ? putFeed() : postFeed()">
+	<header class="topLy">
+		<div>
+			<h1 class="type2">
+				<button type="button" class="to-back" data-ng-click="backLink()">
+					<span class="to-back ico"><span>이전 페이지 이동</span></span>
+				</button>
+				<span class="img-txt fdas2">서울의 발견</span>
+			</h1>
+			<menu class="type2">
+				<button type="submit" class="to-submit ico"
+					data-ng-click="saveFeed()">
+					<span>올리기</span>
+				</button>
+			</menu>
+		</div>
+	</header>
+	<section class="contents">
+		<div class="requiredField">
+			<ul>
+				<li>
+					<select name="category" class="category" title="분야" required placeholder="소식을 올릴 분야를 선택해 주세요."
+						data-ng-model="category"
+						data-ng-options="category.label for category in categories"
+						data-placeholder-compile>
+					</select>
+				</li>
+				<li>
+					<input type="text" name="title" class="title" title="제목" minlength="2" maxlength="50" required placeholder="소식의 제목을 작성해 주세요."
+						data-ng-model="title" 
+						data-ng-trim="true"
+						data-placeholder-compile>
+				</li>
+				<li>
+					<textarea name="body" class="body" cols="30" rows="10" title="내용" required minlength="2" placeholder="알뜰 서울의 발견에 소중한 내용을 작성해 주세요.<br>더 많은 정보 입력이 가능하신가요? 하단 탭을 선택 후 입력해 주세요."
+						data-ng-model="body" 
+						data-ng-trim="true"
+						data-placeholder-compile></textarea>
+				</li>
+			</ul>
+		</div>
+
+		<div class="optionalField">
+			<ul>
+				<li>
+					<label for="area"
+						data-ng-init="onSubField = 'area'"
+						data-ng-click="onSubField = 'area'"
+						data-ng-class="{
+							'on': onSubField === 'area',
+							'ng-invalid': feedForm.area.$invalid }">
+						<span class="ico feed-menu area" data-ng-class="{'ng-invalid': feedForm.area.$invalid }">
+							<span>지역</span>
+						</span>
+					</label>	
+					<div data-ng-show="onSubField === 'area'">
+						<select name="area" id="area" placeholder="지역를 선택해 주세요."
+							data-ng-model="area"
+							data-ng-options="option.label for option in locations"
+							data-placeholder-compile>
+						</select>
+					</div>		
+				</li>
+				<li>
+					<label for="startDate"
+						data-ng-click="onSubField = 'startDate'"
+						data-ng-class="{
+							'on': onSubField === 'startDate',
+							'ng-invalid': feedForm.startDate.$invalid }">
+						<span class="ico feed-menu startDate"
+							data-ng-class="{ 'ng-invalid': feedForm.startDate.$invalid }">
+							<span>시작일</span>
+						</span>
+					</label>	
+					<div data-ng-show="onSubField === 'startDate'">
+						<input type="date" name="startDate" id="startDate" data-ng-model="startDate">
+						<input type="date" name="endDate" id="endDate" data-ng-model="endDate">
+					</div>		
+				</li>
+				<li>
+					<label for="image"
+						data-ng-click="onSubField = 'image';"
+						data-ng-class="{
+							'on': onSubField === 'image',
+							'ng-invalid': feedForm.image.$invalid }">
+						<span class="ico feed-menu image"
+							data-ng-class="{ 'ng-invalid': feedForm.image.$invalid }">
+							<span>이미지</span>
+						</span>
+					</label>		
+					<div data-ng-show="onSubField === 'image'">	
+						<!-- // ng-change not working in input type[file] // -->
+						<input type="file" name="image" id="image" title="이미지" minlength="4" accept="image/*" capture
+							onchange="angular.element( this ).scope().transferFile( this )"
+							data-ng-model="image"
+							data-ng-trim="true"
+							data-preview-image-compile>
+					</div>
+				</li>
+				<li>
+					<label for="agency"
+						data-ng-click="onSubField = 'agency';"
+						data-ng-class="{
+							'on': onSubField === 'agency',
+							'ng-invalid': feedForm.agency.$invalid }">
+						<span class="ico feed-menu agency"
+							data-ng-class="{ 'ng-invalid': feedForm.agency.$invalid }">
+							<span>기관 및 회사</span>
+						</span>
+					</label>
+					<div data-ng-show="onSubField === 'agency'">
+						<input type="text" name="agency" id="agency" minlength="2" maxlength="50" placeholder="기관 및 단체를 입력하세요."
+							data-ng-model="agency"
+							data-ng-trim="true">
+					</div>
+				</li>
+				<li>
+					<label for="url"
+						data-ng-click="onSubField = 'url';"
+						data-ng-class="{
+							'on': onSubField === 'url',
+							'ng-invalid': feedForm.url.$invalid }">
+						<span class="ico feed-menu url"
+							data-ng-class="{ 'ng-invalid': feedForm.url.$invalid }">
+							<span>URL</span>
+						</span>
+					</label>
+					<div data-ng-show="onSubField === 'url'">
+						<input type="url" name="url" id="url" title="URL" minlength="2" pattern="https?://.+" placeholder="관련 URL을 입력하세요."
+							data-ng-model="url"
+							data-ng-trim="true">
+					</div>				
+				</li>
+			</ul>
+		</div>
+	</section>
+</form>

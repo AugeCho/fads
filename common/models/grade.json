@@ -1,0 +1,33 @@
+{
+  "name": "grade",
+  "plural": "grades",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string",
+      "required": true
+    },
+    "feedId": {
+      "type": "string",
+      "required": true
+    },
+    "addDate": {
+      "type": "string"
+    },
+    "fixDate": {
+      "type": "string"
+    },
+    "star": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

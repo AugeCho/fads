@@ -3,29 +3,70 @@
   "plural": "services",
   "base": "PersistedModel",
   "properties": {
-    "title": {
+    "id": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "agency": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "string"
+    },
+    "endDate": {
+      "type": "string"
+    },
+    "addDate": {
+      "type": "string"
+    },
+    "fixDate": {
+      "type": "string"
+    },
+    "delDate": {
       "type": "string"
     },
     "url": {
-      "type": "string",
-      "required": true
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
     },
     "body": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "image": {
       "type": "string"
-    },
-    "interests": {
-      "type": [
-        "string"
-      ],
-      "required": true
     }
   },
   "validations": [],
-  "relations": {},
-  "acls": [],
+  "relations": {
+    "grades": {
+      "type": "hasMany",
+      "model": "grade",
+      "foreignKey": "valuerId"
+    },
+    "replies": {
+      "type": "hasMany",
+      "model": "reply",
+      "foreignKey": "authorId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getService"
+    }
+  ],
   "methods": []
 }

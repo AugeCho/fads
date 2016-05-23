@@ -1,0 +1,51 @@
+<section id="feedListLy" class="feedLy">
+	<header class="topLy has-search">
+		<div>
+			<h1 class="type1">
+				<span class="img-txt fdas3" data-ng-class="service">서울의발견</span>
+			</h1>
+			<menu class="type1">
+				<button type="button" class="to-write ico top-menu" 
+					data-ng-click="$parent.moveAuthLink( 'create/feed' )">
+					<span>글쓰기</span>
+				</button>
+				<button type="button" class="to-my ico top-menu" 
+					data-ng-click="$parent.moveLink( 'my' )">
+					<span>개인</span>
+				</button>
+				<button type="button" class="to-category ico top-menu" 
+					data-ng-click="$parent.moveLink( 'category' )">
+					<span>관심사</span>
+				</button>
+			</menu>
+		</div>
+		<form name="feedSearchForm">
+			<fieldset role="search">
+				<legend>검색</legend>
+				<input type="text" name="keyword" id="keyword" minlength="1" maxlength="100" placeholder="궁금한 혜택이 무엇인가요?" 
+					data-ng-model="keyword"
+					data-ng-trim="true"
+					data-ng-keypress="filterKeyword( $event )">
+				<button type="button">
+					<span>검색</span>
+				</button>
+			</fieldset>
+		</form>
+	</header>
+	<section>
+		<ul>
+			<li data-ng-repeat="feed in feeds" 
+				data-feed-compile 
+				data-outer="$parent.$parent" 
+				data-item="feed"
+				data-type="'list'"></li>
+		</ul>
+		<menu>
+			<button type="button" class="ico feed-more"
+				data-ng-if="hasFeedList"
+				data-ng-click="getList()">
+				<span>더보기</span>
+			</button>
+		</menu>
+	</section>
+</section>

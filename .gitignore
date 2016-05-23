@@ -31,3 +31,12 @@ node_modules
 
 .vagrant
 client/vendor
+docular_generated
+
+# exclude jekyll
+_site
+bower_components
+
+# Ignore docs files
+client/stylesheets/.sass-cache
+client/stylesheets/.sass-cache/*

@@ -2,30 +2,48 @@
   "_meta": {
     "sources": [
       "../common/models",
-      "./models"
+      "./models",
+      "./node_modules/loopback-component-passport/lib/models"
     ]
   },
-  "User": {
-    "dataSource": "db"
+  "user": {
+    "dataSource": "fdas_dev",
+    "public": true
   },
-  "AccessToken": {
-    "dataSource": "db",
-    "public": false
+  "accessToken": {
+    "dataSource": "fdas_dev",
+    "public": true
+  },
+  "userCredential": {
+    "dataSource": "fdas_dev",
+    "public": true
+  },
+  "userIdentity": {
+    "dataSource": "fdas_dev",
+    "public": true
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "fdas_dev",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "fdas_dev",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "fdas_dev",
     "public": false
   },
   "service": {
-    "dataSource": "MongoDB",
+    "dataSource": "fdas_dev",
+    "public": true
+  },
+  "grade": {
+    "dataSource": "fdas_dev",
+    "public": true
+  },
+  "reply": {
+    "dataSource": "fdas_dev",
     "public": true
   }
 }

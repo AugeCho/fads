@@ -1,0 +1,64 @@
+<section id="feedItemLy" class="feedLy">
+	<header class="topLy">
+		<div>
+			<h1 class="type2">
+				<button type="button" class="to-back" data-ng-click="backLink()">
+					<span class="to-back ico"><span>이전 페이지 이동</span></span>
+				</button>
+				<span class="img-txt fdas2">서울의발견</span>
+			</h1>
+			<menu class="type1">
+				<button type="button" class="to-write ico top-menu" 
+					data-ng-click="$parent.moveLink( 'create/feed' )">
+					<span>글쓰기</span>
+				</button>
+				<button type="button" class="to-my ico top-menu" 
+					data-ng-click="$parent.moveLink( 'my' )">
+					<span>개인</span>
+				</button>
+				<button type="button" class="to-category ico top-menu" 
+					data-ng-click="$parent.moveLink( 'category' )">
+					<span>관심사</span>
+				</button>
+			</menu>
+		</div>
+	</header>
+	<section data-feed-compile 
+			data-outer="$parent" 
+			data-item="feed"
+			data-type="'item'"></section>
+	<section class="reply">
+		<menu>
+			<button type="button" class="to-prev-reply"
+				data-ng-if="hasReplyList"
+				data-ng-click="getReply()">
+				<span>이전 댓글 보기</span>
+			</button>
+		</menu>
+		<ul>
+			<li data-ng-repeat="reply in replies">
+				<img alt=""
+					data-img-compile="{{reply.pic}}"
+					data-img-compile-base="images/img-pic-none2.png">
+				<strong data-reply-compile="reply.userId">{{reply.userName}}</strong> <time>{{reply.addDate||reply.fixDate|date:'yyyy.MM.dd HH:mm'}}</time>
+				<p>{{reply.body}}</p>
+			</li>
+		</ul>
+		<form name="replyForm"
+			data-ng-submit="postReply()">
+			<fieldset>
+				<textarea name="reply" id="reply" cols="30" rows="10" minlength="1" maxlength="100" required placeholder="댓글을 작성하려면 로그인 하세요." 
+					data-ng-model="reply"
+					data-ng-trim="true"></textarea>
+				<button type="submit" class="btn"
+					data-ng-disabled="replyForm.$invalid"
+					data-ng-click="saveReply()"
+					data-ng-class="{
+						'type1': replyForm.reply.$valid,
+						'type2': replyForm.reply.$invalid }">
+					<span>전송</span>
+				</button>
+			</fieldset>
+		</form>
+	</section>
+</section>

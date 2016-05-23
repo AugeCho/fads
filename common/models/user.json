@@ -1,0 +1,63 @@
+{
+  "name": "user",
+  "plural": "users",
+  "base": "User",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "addDate": {
+      "type": "string"
+    },
+    "fixDate": {
+      "type": "string"
+    },
+    "sns": {
+      "type": "string"
+    },
+    "snsUid": {
+      "type": "string"
+    },
+    "snsnsPics": {
+      "type": "string"
+    },
+    "snsName": {
+      "type": "string"
+    }
+  },
+  "relations": {
+    "services": {
+      "type": "hasMany",
+      "model": "service",
+      "foreignKey": "ownerId"
+    },
+    "grades": {
+      "type": "hasMany",
+      "model": "grade",
+      "foreignKey": "valuerId"
+    },
+    "replies": {
+      "type": "hasMany",
+      "model": "reply",
+      "foreignKey": "authorId"
+    },
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "accessToken",
+      "foreignKey": "userId"
+    },
+    "identities": {
+      "type": "hasMany",
+      "model": "userIdentity",
+      "foreignKey": "userId"
+    },
+    "credentials": {
+      "type": "hasMany",
+      "model": "userCredential",
+      "foreignKey": "userId"
+    }
+  },
+  "validations": [],
+  "acls": [],
+  "methods": []
+}
